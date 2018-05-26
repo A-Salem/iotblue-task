@@ -2,8 +2,10 @@
 
 module.exports = function(Items) {
 
+  // Make propery sku in items model unique
   Items.validatesUniquenessOf('sku');
 
+  // Disable not needed remote methods
   Items.disableRemoteMethodByName("patchOrCreate", true);
   Items.disableRemoteMethodByName("replaceOrCreate", true);
   Items.disableRemoteMethodByName("upsertWithWhere", true);

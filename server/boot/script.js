@@ -10,6 +10,7 @@ module.exports = async function(app) {
 
   let userFound = await Users.findOne({});
 
+  // If no users found adding default admin user
   if(!userFound){
     Users.create([
         {username: 'Admin', email: 'admin@local.com', password: 'sfjmh3204/'}

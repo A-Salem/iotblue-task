@@ -2,6 +2,7 @@
 
 module.exports = function(Users) {
 
+  // Disable not needed remote methods
   Users.disableRemoteMethodByName("prototype.__findById__accessTokens", true);
   Users.disableRemoteMethodByName("prototype.__destroyById__accessTokens", true);
   Users.disableRemoteMethodByName("prototype.__updateById__accessTokens", true);
@@ -27,6 +28,8 @@ module.exports = function(Users) {
   Users.disableRemoteMethodByName("changePassword", true);
   Users.disableRemoteMethodByName("setPassword", true);
 
+
+  // Adding remote method for listing users with their orders
   Users.listWithOrders = async function(cb) {
     const _ = require('underscore');
     const Orders = Users.app.models.Orders;
@@ -38,10 +41,11 @@ module.exports = function(Users) {
       user.orders = orders;
       usersWithOrders.push(user);
     }
-    
+
     cb(null, usersWithOrders)
   }
 
+  // Configure listWithOrders remote method
   Users.remoteMethod('listWithOrders', {
     http: {path: '/listWithOrders', verb: 'get'},
     returns: {arg: 'users', type: 'array'}

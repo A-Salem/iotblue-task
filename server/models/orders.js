@@ -2,6 +2,7 @@
 
 module.exports = function(Orders) {
 
+  // Disable not needed remote methods
   Orders.disableRemoteMethodByName("patchOrCreate", true);
   Orders.disableRemoteMethodByName("replaceOrCreate", true);
   Orders.disableRemoteMethodByName("upsertWithWhere", true);
@@ -15,6 +16,8 @@ module.exports = function(Orders) {
   Orders.disableRemoteMethodByName("prototype.patchAttributes", true);
   Orders.disableRemoteMethodByName("createChangeStream", true);
 
+
+  // Using find method hook for return only current user's orders
   Orders.beforeRemote('find', function(ctx, modelInstance, next) {
 
     if(!ctx.res.req.accessToken){
@@ -27,6 +30,7 @@ module.exports = function(Orders) {
   });
 
 
+  // Using before create method hook for validating the order and adding userId, invoiceValue and etc
   Orders.observe('before save', async function filterProperties(ctx, next) {
 
     if(ctx.isNewInstance){
@@ -64,7 +68,7 @@ module.exports = function(Orders) {
 
   });
 
-
+  // Using after create method hook for modifying items' quantities after creating an order
   Orders.observe('after save', function filterProperties(ctx, next) {
 
     if(ctx.isNewInstance){
