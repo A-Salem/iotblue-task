@@ -1,0 +1,42 @@
+{
+  "name": "Orders",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": false
+    },
+    "userId": {
+      "type": "object",
+      "required": true
+    },
+    "items": {
+      "type": "array",
+      "required": true
+    },
+    "totalItems": {
+      "type": "number",
+      "required": true
+    },
+    "invoiceValue": {
+      "type": "number",
+      "required": true
+    },
+    "address": {
+      "type": "string",
+      "required": true
+    },
+    "createdAt": {
+      "type": "date",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}
