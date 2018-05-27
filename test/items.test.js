@@ -2,6 +2,7 @@ const app = require('../server/server');
 const expect = require('expect');
 
 describe('Test Some Items Model Methods', function(){
+  
   it('count method: should return number of items', function(cb){
       app.models.Items.count({}, function(err, count){
         expect(typeof count).toBe('number');
